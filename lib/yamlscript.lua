@@ -103,7 +103,7 @@ ffi.cdef[[
 typedef struct graal_isolate_t graal_isolate_t;
 typedef struct graal_isolatethread_t graal_isolatethread_t;
 
-int graal_create_isolate(void* params, graal_isolate_t** isolate, 
+int graal_create_isolate(void* params, graal_isolate_t** isolate,
                         graal_isolatethread_t** thread);
 int graal_tear_down_isolate(graal_isolatethread_t* thread);
 
@@ -129,15 +129,15 @@ Usage:
 -- YAMLScript instance constructor
 function YAMLScript.new(config)
   config = config or {}
-  
+
   local self = setmetatable({}, YAMLScript)
 
   -- Create a new GraalVM isolate
   local isolate = ffi.new("graal_isolate_t*[1]")
   local thread = ffi.new("graal_isolatethread_t*[1]")
-  
+
   local rc = libys.graal_create_isolate(nil, isolate, thread)
-  
+
   if rc ~= 0 then
     error("Failed to create isolate")
   end
