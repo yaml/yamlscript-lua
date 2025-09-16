@@ -44,7 +44,7 @@ local json = require("cjson")
 -- This value is automatically updated by 'make bump'.
 -- The version number is used to find the correct shared library file.
 -- We currently only support binding to an exact version of libys.
-local yamlscript_version = '0.2.3'
+local yamlscript_version = '0.2.4'
 
 -- Find the libys shared library file path
 local function find_libys_path()
@@ -176,14 +176,15 @@ function YAMLScript:load(input)
   return resp.data
 end
 
--- YAMLScript instance destructor
-function YAMLScript:__gc()
+-- Manual cleanup method for the isolate
+function YAMLScript:close()
   if self.isolatethread then
     -- Tear down the isolate thread to free resources
     local rc = libys.graal_tear_down_isolate(self.isolatethread)
     if rc ~= 0 then
       error("Failed to tear down isolate")
     end
+    self.isolatethread = nil
   end
 end
 
