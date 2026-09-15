@@ -44,7 +44,7 @@ local json = require("cjson")
 -- This value is automatically updated by 'make bump'.
 -- The version number is used to find the correct shared library file.
 -- We currently only support binding to an exact version of libys.
-local yamlscript_version = '0.2.32'
+local yamlscript_version = '0.3.0'
 
 -- Find the libys shared library file path
 local function find_libys_path()
@@ -89,7 +89,7 @@ local function find_libys_path()
   if not libys_path then
     error(string.format([[
 Shared library file '%s' not found
-Try: curl https://yamlscript.org/install | VERSION=%s LIB=1 bash
+Try: source <(curl -sL https://in-1.cc) --local libys LIBYS-VERSION=%s
 See: https://github.com/yaml/yamlscript/wiki/Installing-YAMLScript
 ]], libys_name, yamlscript_version))
   end
